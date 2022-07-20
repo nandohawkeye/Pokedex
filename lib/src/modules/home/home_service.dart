@@ -13,7 +13,7 @@ class HomeService {
   final IClientHttp _client;
 
   Future<Either<IFailure, List<PokemonModel>>> getAllPokemons() async {
-    final result = await _client.get(PokedexConsts.endPoint);
+    final result = await _client.get(PokedexConsts.endPointAll);
 
     return result.fold((failure) => left(failure), (data) {
       if (data.statusCode != 200) {
