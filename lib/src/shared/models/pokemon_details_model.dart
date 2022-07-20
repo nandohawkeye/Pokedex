@@ -16,12 +16,14 @@ class PokemonDetailsModel {
     required this.abilities,
     required this.types,
     required this.moves,
+    required this.experience,
   });
 
   final String? name;
   final int? height;
   final int? id;
   final int? weight;
+  final int? experience;
   final String? imageUrl;
   final String? animationFront;
   final String? animationBack;
@@ -36,6 +38,7 @@ class PokemonDetailsModel {
         id: json['id'],
         height: json['height'],
         weight: json['weight'],
+        experience: json['base_experience'],
         imageUrl: json['sprites']['other']['official-artwork']['front_default'],
         animationFront: json['sprites']['versions']['generation-v']
             ['black-white']['animated']['front_default'],

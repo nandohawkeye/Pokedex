@@ -9,6 +9,21 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Color> colors = [
+      Colors.blue,
+      Colors.red,
+      Colors.green,
+      Colors.cyan,
+      Colors.amber,
+      Colors.amber,
+      Colors.black87,
+      Colors.orange,
+      Colors.grey,
+      Colors.brown
+    ];
+
+    final Color color = (colors..shuffle()).first;
+
     return InkWell(
       onTap: () => context.push('/pokemon-details/${pokemon.name}'),
       borderRadius: BorderRadius.circular(8),
@@ -18,17 +33,21 @@ class PokemonCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                  color: Colors.black38.withOpacity(0.05),
-                  offset: const Offset(0, 5),
-                  blurRadius: 15)
+                color: color.withOpacity(0.10),
+                offset: const Offset(0, 5),
+                blurRadius: 20,
+              )
             ]),
         height: 40,
         padding: const EdgeInsets.all(8),
         alignment: Alignment.center,
-        child: Text(pokemon.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.w400,
-            )),
+        child: Text(
+          pokemon.name,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: color,
+          ),
+        ),
       ),
     );
   }

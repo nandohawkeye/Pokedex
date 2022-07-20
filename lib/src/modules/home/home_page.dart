@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pokedex/injection.dart';
 import 'package:pokedex/src/modules/home/home_controller.dart';
 import 'package:pokedex/src/modules/home/widgets/pokemon_card.dart';
+import 'package:pokedex/src/shared/widgets/pokeloader.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,10 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Pokedex'),
-      ),
+      appBar: AppBar(centerTitle: true, title: const Text('Pokedex')),
       body: Obx(() => _controller.hasPokemons
           ? GridView.builder(
               padding: const EdgeInsets.all(20),
@@ -39,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: _controller.pokemons!.length,
               itemBuilder: (context, index) =>
                   PokemonCard(pokemon: _controller.pokemons![index]))
-          : Container(color: Colors.blue)),
+          : const PokeLoader()),
     );
   }
 }
