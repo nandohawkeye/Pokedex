@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:pokedex/src/core/database/app_db.dart';
 import 'package:pokedex/src/core/interfaces/i_failure.dart';
 import 'package:pokedex/src/modules/home/home_service.dart';
+import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
 
 @LazySingleton()
 class HomeController extends GetxController {
@@ -20,8 +21,8 @@ class HomeController extends GetxController {
   final _failure = Rx<IFailure?>(null);
   IFailure? get failure => _failure.value;
 
-  final _loading = Rx<bool>(false);
-  bool get loading => _loading.value;
+  final _pokemon = Rx<PokemonDetailsModel?>(null);
+  PokemonDetailsModel? get pokemon => _pokemon.value;
 
   init() async {
     _pokemons.bindStream(_appDB.watchEmployees);
@@ -29,17 +30,24 @@ class HomeController extends GetxController {
   }
 
   Future<void> getAllPokemons() async {
-    _loading.value = true;
     _failure.value = null;
     final result = await _homeService.getAllPokemons();
     result.fold((failure) {
       _failure.value = failure;
-      _loading.value = false;
     }, (data) {
       final list = data.map((e) => e.toCompanion()).toList();
       _appDB.insertAllPokemons(list);
       _failure.value = null;
-      _loading.value = false;
+    });
+  }
+
+  Future<void> getPokemon(String pokemonName) async {
+    _pokemon.value = null;
+    final result = await _homeService.getPokemon(pokemonName);
+    result.fold((failure) {
+      _failure.value = failure;
+    }, (data) {
+      _pokemon.value = data;
     });
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/src/core/routes/routes.dart';
-
 import 'injection.dart';
 
 void main() {

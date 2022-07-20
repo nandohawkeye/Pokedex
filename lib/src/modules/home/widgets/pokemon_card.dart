@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex/src/core/database/app_db.dart';
 
 class PokemonCard extends StatelessWidget {
-  const PokemonCard({Key? key, required this.pokemon}) : super(key: key);
+  const PokemonCard({Key? key, required this.pokemon, required this.onTap})
+      : super(key: key);
 
   final IPokemonEntityData pokemon;
+  final Function(String) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,8 @@ class PokemonCard extends StatelessWidget {
     final Color color = (colors..shuffle()).first;
 
     return InkWell(
-      onTap: () => context.push('/pokemon-details/${pokemon.name}'),
+      onTap: () => onTap(pokemon.name),
+      onLongPress: () => context.push('/pokemon-details/${pokemon.name}'),
       borderRadius: BorderRadius.circular(8),
       child: Container(
         decoration: BoxDecoration(
