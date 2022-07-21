@@ -9,8 +9,10 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 1)).then((_) => context.go('/home'));
+    Future.delayed(const Duration(milliseconds: 300))
+        .then((_) => context.go('/home'));
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
@@ -21,9 +23,13 @@ class SplashPage extends StatelessWidget {
           )),
       body: Material(
           color: Colors.transparent,
-          child: Center(
-            child: Hero(
-              tag: HeroTags.logo,
+          child: Hero(
+            tag: HeroTags.logo,
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.white,
+              height: double.infinity,
+              width: double.infinity,
               child: Image.asset(
                 Assets.logo,
                 width: (MediaQuery.of(context).size.width / 3) * 2,

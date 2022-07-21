@@ -32,7 +32,13 @@ class PokemonBottomSheet extends StatelessWidget {
                   ]),
               child: pokemon == null
                   ? const PokeLoader()
-                  : CachedNetworkImage(imageUrl: pokemon!.imageUrl!),
+                  : pokemon!.imageUrl == null
+                      ? const Icon(
+                          Icons.image_not_supported,
+                          size: 130,
+                          color: Colors.grey,
+                        )
+                      : CachedNetworkImage(imageUrl: pokemon!.imageUrl!),
             ),
           ),
           const SizedBox(height: 16),

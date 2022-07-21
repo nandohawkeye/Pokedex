@@ -46,6 +46,8 @@ dependencies:
   injectable: 1.5.3
   shimmer: 2.0.0
   cached_network_image: 3.2.1
+  flutter_staggered_animations: 1.0.0
+  font_awesome_flutter: 10.1.0
 
 dev_dependencies:
   flutter_test:

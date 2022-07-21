@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex/injection.dart';
 import 'package:pokedex/src/core/constants/assets.dart';
-import 'package:pokedex/src/core/constants/hero_tags.dart';
 import 'package:pokedex/src/modules/home/home_controller.dart';
+import 'package:pokedex/src/modules/home/widgets/header_home.dart';
 import 'package:pokedex/src/modules/home/widgets/pokemon_bottomsheet.dart';
 import 'package:pokedex/src/modules/home/widgets/pokemons_gridview.dart';
+import 'package:pokedex/src/modules/home/widgets/textformfield_home.dart';
 import 'package:pokedex/src/shared/widgets/pokeloader.dart';
 
 class HomePage extends StatefulWidget {
@@ -45,30 +47,37 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          toolbarHeight: 100,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Colors.white,
-            statusBarIconBrightness: Brightness.dark,
+        elevation: 0,
+        toolbarHeight: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+      ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const HeaderHome(),
+          TextFormFieldHome(onChanged: _controller.onChangeSearchPokemon),
+          Obx(() => _controller.hasPokemons
+              ? Expanded(
+                  child: PokemonsGridView(
+                    onTap: callBottomsheet,
+                    pokemons: _controller.pokemons!,
+                  ),
+                )
+              : const PokeLoader()),
+        ],
+      ),
+      floatingActionButton: AnimationConfiguration.synchronized(
+        child: ScaleAnimation(
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.red,
+            child: Image.asset(Assets.pokebolaWhite),
           ),
-          centerTitle: true,
-          title: Material(
-            color: Colors.transparent,
-            child: Hero(
-              tag: HeroTags.logo,
-              child: Image.asset(
-                Assets.logo,
-                height: 80,
-              ),
-            ),
-          )),
-      body: Obx(() => _controller.hasPokemons
-          ? PokemonsGridView(
-              onTap: callBottomsheet,
-              pokemons: _controller.pokemons!,
-            )
-          : const PokeLoader()),
+        ),
+      ),
     );
   }
 }

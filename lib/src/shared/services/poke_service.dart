@@ -8,8 +8,8 @@ import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
 import 'package:pokedex/src/shared/models/pokemon_model.dart';
 
 @Injectable()
-class HomeService {
-  HomeService(this._client);
+class PokeService {
+  PokeService(this._client);
 
   final IClientHttp _client;
 
