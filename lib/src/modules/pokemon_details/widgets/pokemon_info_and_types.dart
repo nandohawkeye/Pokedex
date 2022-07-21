@@ -16,7 +16,7 @@ class PokemonInfoAndTypes extends StatelessWidget {
         : AnimationConfiguration.synchronized(
             child: FadeInAnimation(
               child: SizedBox(
-                height: 50,
+                height: 40,
                 child: NotificationListener<OverscrollNotification>(
                   onNotification: (notification) =>
                       notification.metrics.axisDirection != AxisDirection.left,

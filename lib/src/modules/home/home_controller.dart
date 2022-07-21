@@ -1,22 +1,23 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pokedex/src/core/database/app_db.dart';
 import 'package:pokedex/src/core/interfaces/i_failure.dart';
+import 'package:pokedex/src/shared/services/connectivity_service.dart';
 import 'package:pokedex/src/shared/services/poke_service.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
-import 'package:pokedex/src/shared/models/pokemon_model.dart';
 
 @LazySingleton()
 class HomeController extends GetxController {
-  HomeController(this._pokeService, this._appDB);
+  HomeController(this._pokeService, this._connectivityService);
 
-  final AppDB _appDB;
   final PokeService _pokeService;
+  final ConnectivityService _connectivityService;
 
-  final _pokemons = Rx<List<IPokemonEntityData>?>(null);
-  List<IPokemonEntityData>? get pokemons => _pokemons.value
-      ?.where((p) =>
-          p.name.toUpperCase().contains(_pokemonSearch.value.toUpperCase()))
+  final _pokemons = Rx<List<String>?>(null);
+  List<String>? get pokemons => _pokemons.value
+      ?.where(
+          (p) => p.toUpperCase().contains(_pokemonSearch.value.toUpperCase()))
       .toList();
   bool get hasPokemons =>
       _pokemons.value != null && _pokemons.value!.isNotEmpty;
@@ -27,22 +28,33 @@ class HomeController extends GetxController {
   final _pokemon = Rx<PokemonDetailsModel?>(null);
   PokemonDetailsModel? get pokemon => _pokemon.value;
 
+  final _isConnected = Rx<bool>(true);
+  bool get isConnected => _isConnected.value;
+
   final _pokemonSearch = Rx<String>('');
+
+  late StreamSubscription subscriptionIsconnected;
 
   void onChangeSearchPokemon(String value) => _pokemonSearch.value = value;
 
   init() async {
-    _pokemons.bindStream(_appDB.watchEmployees);
-    await getAllPokemons();
+    _isConnected.value = await _connectivityService.getConnected();
+    if (_isConnected.value) {
+      await getAllPokemons();
+    }
+
+    subscriptionIsconnected =
+        _connectivityService.isConnectedStream.listen((event) async {
+      _isConnected.value = event;
+      if (_isConnected.value) {
+        await getAllPokemons();
+      }
+    });
   }
 
   void setFailure(IFailure failure) => _failure.value = failure;
   void setPokemon(PokemonDetailsModel pokemon) => _pokemon.value = pokemon;
-  void setPokemons(List<PokemonModel> pokemons) {
-    final list = pokemons.map((e) => e.toCompanion()).toList();
-    _appDB.insertAllPokemons(list);
-    _failure.value = null;
-  }
+  void setPokemons(List<String> pokemons) => _pokemons.value = pokemons;
 
   Future<void> getAllPokemons() async {
     _failure.value = null;
@@ -55,5 +67,11 @@ class HomeController extends GetxController {
     _pokemon.value = null;
     final result = await _pokeService.getPokemon(pokemonName);
     result.fold(setFailure, setPokemon);
+  }
+
+  @override
+  void dispose() {
+    _isConnected.close();
+    super.dispose();
   }
 }

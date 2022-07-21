@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/src/shared/models/pokemon_move_model.dart';
+import 'package:pokedex/src/shared/utils/text_utils.dart';
 
 class ItenMove extends StatelessWidget {
   const ItenMove({Key? key, required this.move}) : super(key: key);
@@ -27,7 +28,7 @@ class ItenMove extends StatelessWidget {
           color: color.withOpacity(0.15),
         ),
         child: Text(
-          move.name,
+          captalize(move.name),
           style: const TextStyle(fontSize: 16),
         ));
   }

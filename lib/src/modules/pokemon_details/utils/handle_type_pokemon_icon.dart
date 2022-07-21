@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pokedex/src/core/constants/pokemon_types.dart';
 
-IconData? handleColorTypePokemon(String type) {
+IconData? handleIconTypePokemon(String type) {
   switch (type) {
     case Pokemontypes.fire:
       return FontAwesomeIcons.fireFlameCurved;

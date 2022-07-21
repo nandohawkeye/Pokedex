@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/src/core/constants/assets.dart';
+import 'package:pokedex/src/core/constants/assets_images.dart';
 import 'package:pokedex/src/core/constants/hero_tags.dart';
 
 class HeaderHome extends StatelessWidget {
@@ -17,7 +17,7 @@ class HeaderHome extends StatelessWidget {
           alignment: Alignment.center,
           color: Colors.white,
           child: Image.asset(
-            Assets.logo,
+            AssetsImages.logo,
             height: 80,
           ),
         ),

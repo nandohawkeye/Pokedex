@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pokedex/injection.dart';
-import 'package:pokedex/src/core/constants/assets.dart';
+import 'package:pokedex/src/core/constants/assets_images.dart';
 import 'package:pokedex/src/modules/pokemon_details/pokemon_details_controller.dart';
 import 'package:pokedex/src/modules/pokemon_details/widgets/pokemon_abilities.dart';
 import 'package:pokedex/src/modules/pokemon_details/widgets/pokemon_info_and_types.dart';
@@ -10,6 +10,8 @@ import 'package:pokedex/src/modules/pokemon_details/widgets/pokemon_main_image.d
 import 'package:pokedex/src/modules/pokemon_details/widgets/pokemon_moves.dart';
 import 'package:pokedex/src/modules/pokemon_details/widgets/pokemon_stats.dart';
 import 'package:pokedex/src/modules/pokemon_details/widgets/pokemons_animations.dart';
+import 'package:pokedex/src/shared/utils/text_utils.dart';
+import 'package:pokedex/src/shared/widgets/error_widget.dart';
 import 'package:pokedex/src/shared/widgets/pokeloader.dart';
 
 class PokemonDetailsPage extends StatefulWidget {
@@ -47,7 +49,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
           statusBarIconBrightness: Brightness.dark,
         ),
         title: Text(
-          widget.pokemonName,
+          captalize(widget.pokemonName),
           style: const TextStyle(color: Colors.black87),
         ),
         actions: [
@@ -56,26 +58,32 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
             child: IconButton(
                 onPressed: () {},
                 icon: Image.asset(
-                  Assets.pokebolaBlack,
+                  AssetsImages.pokebola,
                   color: Colors.black45,
                 )),
           )
         ],
       ),
-      body: Obx(() => _controller.pokemon == null
-          ? const Center(child: PokeLoader())
-          : ListView(
-              shrinkWrap: true,
-              cacheExtent: MediaQuery.of(context).size.height,
-              children: [
-                PokemonMainImage(pokemonImage: _controller.pokemon?.imageUrl),
-                PokemonInfoAndTypes(pokemon: _controller.pokemon),
-                PokemonStats(pokemon: _controller.pokemon),
-                PokemonAbilities(pokemon: _controller.pokemon),
-                PokemonAnimations(pokemon: _controller.pokemon),
-                PokemonMoves(pokemon: _controller.pokemon),
-              ],
-            )),
+      body: Obx(() => _controller.failure != null
+          ? ErroWidget(
+              onRetry: () async =>
+                  await _controller.getPokemon(widget.pokemonName),
+            )
+          : _controller.pokemon == null
+              ? const Center(child: PokeLoader())
+              : ListView(
+                  shrinkWrap: true,
+                  cacheExtent: MediaQuery.of(context).size.height,
+                  children: [
+                    PokemonMainImage(
+                        pokemonImage: _controller.pokemon?.imageUrl),
+                    PokemonInfoAndTypes(pokemon: _controller.pokemon),
+                    PokemonStats(pokemon: _controller.pokemon),
+                    PokemonAbilities(pokemon: _controller.pokemon),
+                    PokemonAnimations(pokemon: _controller.pokemon),
+                    PokemonMoves(pokemon: _controller.pokemon),
+                  ],
+                )),
     );
   }
 }

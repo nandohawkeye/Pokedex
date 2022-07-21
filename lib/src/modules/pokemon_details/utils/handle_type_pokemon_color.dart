@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/src/core/constants/pokemon_types.dart';
 
-Color? handleColorTypepokemon(String type) {
+Color? handleColorTypePokemon(String type) {
   switch (type) {
     case Pokemontypes.fire:
       return Colors.red[400]!;
@@ -24,7 +24,7 @@ Color? handleColorTypepokemon(String type) {
     case Pokemontypes.flying:
       return Colors.blueGrey;
     case Pokemontypes.psychic:
-      return Colors.blueGrey;
+      return Colors.purple[300];
     case Pokemontypes.bug:
       return Colors.green[800]!;
     case Pokemontypes.rock:

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pokedex/src/core/constants/assets.dart';
+import 'package:pokedex/src/core/constants/assets_images.dart';
 import 'package:pokedex/src/core/constants/hero_tags.dart';
+import 'package:pokedex/src/core/constants/route_paths.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 300))
-        .then((_) => context.go('/home'));
+        .then((_) => context.go(RoutePaths.home));
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -31,7 +32,7 @@ class SplashPage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: Image.asset(
-                Assets.logo,
+                AssetsImages.logo,
                 width: (MediaQuery.of(context).size.width / 3) * 2,
               ),
             ),

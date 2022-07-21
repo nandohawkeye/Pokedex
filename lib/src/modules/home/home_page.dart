@@ -4,12 +4,15 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex/injection.dart';
-import 'package:pokedex/src/core/constants/assets.dart';
+import 'package:pokedex/src/core/constants/assets_images.dart';
+import 'package:pokedex/src/core/constants/route_paths.dart';
 import 'package:pokedex/src/modules/home/home_controller.dart';
 import 'package:pokedex/src/modules/home/widgets/header_home.dart';
 import 'package:pokedex/src/modules/home/widgets/pokemon_bottomsheet.dart';
 import 'package:pokedex/src/modules/home/widgets/pokemons_gridview.dart';
 import 'package:pokedex/src/modules/home/widgets/textformfield_home.dart';
+import 'package:pokedex/src/shared/widgets/error_widget.dart';
+import 'package:pokedex/src/shared/widgets/no_connection_widget.dart';
 import 'package:pokedex/src/shared/widgets/pokeloader.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 Obx(() => PokemonBottomSheet(pokemon: _controller.pokemon)))
         .then((value) {
       if (value != null && value) {
-        context.push('/pokemon-details/$pokemonName');
+        context.push('${RoutePaths.pokemonDetails}/$pokemonName');
       }
     });
   }
@@ -58,23 +61,37 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const HeaderHome(),
-          TextFormFieldHome(onChanged: _controller.onChangeSearchPokemon),
-          Obx(() => _controller.hasPokemons
-              ? Expanded(
-                  child: PokemonsGridView(
-                    onTap: callBottomsheet,
-                    pokemons: _controller.pokemons!,
-                  ),
-                )
-              : const PokeLoader()),
+          Obx(() => !_controller.isConnected
+              ? const NoConnectionWidget()
+              : _controller.failure != null
+                  ? ErroWidget(
+                      onRetry: () => _controller.getAllPokemons(),
+                    )
+                  : Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextFormFieldHome(
+                              onChanged: _controller.onChangeSearchPokemon),
+                          Expanded(
+                            child: _controller.hasPokemons
+                                ? PokemonsGridView(
+                                    onTap: callBottomsheet,
+                                    pokemons: _controller.pokemons!,
+                                  )
+                                : const PokeLoader(),
+                          )
+                        ],
+                      ),
+                    )),
         ],
       ),
       floatingActionButton: AnimationConfiguration.synchronized(
         child: ScaleAnimation(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () => context.push(RoutePaths.capturedPokemons),
             backgroundColor: Colors.red,
-            child: Image.asset(Assets.pokebolaWhite),
+            child: Image.asset(AssetsImages.pokebola, color: Colors.white),
           ),
         ),
       ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pokedex/src/core/database/app_db.dart';
+import 'package:pokedex/src/core/constants/route_paths.dart';
+import 'package:pokedex/src/shared/utils/text_utils.dart';
 
 class PokemonCard extends StatelessWidget {
-  const PokemonCard({Key? key, required this.pokemon, required this.onTap})
+  const PokemonCard({Key? key, required this.pokemonName, required this.onTap})
       : super(key: key);
 
-  final IPokemonEntityData pokemon;
+  final String pokemonName;
   final Function(String) onTap;
 
   @override
@@ -27,8 +28,9 @@ class PokemonCard extends StatelessWidget {
     final Color color = (colors..shuffle()).first;
 
     return InkWell(
-      onTap: () => onTap(pokemon.name),
-      onLongPress: () => context.push('/pokemon-details/${pokemon.name}'),
+      onTap: () => onTap(pokemonName),
+      onLongPress: () =>
+          context.push('${RoutePaths.pokemonDetails}/$pokemonName'),
       borderRadius: BorderRadius.circular(8),
       child: Container(
         decoration: BoxDecoration(
@@ -45,7 +47,7 @@ class PokemonCard extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         alignment: Alignment.center,
         child: Text(
-          pokemon.name,
+          captalize(pokemonName),
           style: TextStyle(
             fontWeight: FontWeight.w500,
             color: color,

@@ -5,7 +5,6 @@ import 'package:pokedex/src/core/interfaces/i_client_http.dart';
 import 'package:pokedex/src/core/interfaces/i_failure.dart';
 import 'package:pokedex/src/shared/failures/server_failute.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
-import 'package:pokedex/src/shared/models/pokemon_model.dart';
 
 @Injectable()
 class PokeService {
@@ -13,7 +12,7 @@ class PokeService {
 
   final IClientHttp _client;
 
-  Future<Either<IFailure, List<PokemonModel>>> getAllPokemons() async {
+  Future<Either<IFailure, List<String>>> getAllPokemons() async {
     final result = await _client.get(PokedexConsts.endPointAll);
 
     return result.fold((failure) => left(failure), (data) {
@@ -26,8 +25,8 @@ class PokeService {
         return left(ServerFailure(mensage: 'Empty data'));
       }
 
-      return right(List<PokemonModel>.from(
-          data.data!['results'].map((p) => PokemonModel.fromJson(p))));
+      return right(List<String>.from(
+          data.data!['results'].map((pokemon) => (pokemon['name'] as String))));
     });
   }
 

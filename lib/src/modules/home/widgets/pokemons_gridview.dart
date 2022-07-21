@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pokedex/src/core/database/app_db.dart';
 import 'package:pokedex/src/modules/home/widgets/pokemon_card.dart';
 
 class PokemonsGridView extends StatelessWidget {
@@ -8,7 +7,7 @@ class PokemonsGridView extends StatelessWidget {
       {Key? key, required this.pokemons, required this.onTap})
       : super(key: key);
 
-  final List<IPokemonEntityData> pokemons;
+  final List<String> pokemons;
   final Function(String) onTap;
 
   @override
@@ -35,7 +34,7 @@ class PokemonsGridView extends StatelessWidget {
                   child: FadeInAnimation(
                     child: PokemonCard(
                       onTap: onTap,
-                      pokemon: pokemons[index],
+                      pokemonName: pokemons[index],
                     ),
                   ),
                 ),

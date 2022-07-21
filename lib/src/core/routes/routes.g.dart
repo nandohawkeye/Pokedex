@@ -10,6 +10,7 @@ List<GoRoute> get $appRoutes => [
       $splashRoute,
       $homeRoute,
       $pokemonDetailsRoute,
+      $capturedPokemons,
     ];
 
 GoRoute get $splashRoute => GoRouteData.$route(
@@ -59,6 +60,24 @@ extension $PokemonDetailsRouteExtension on PokemonDetailsRoute {
 
   String get location => GoRouteData.$location(
         '/pokemon-details/${Uri.encodeComponent(pokemonName)}',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: this);
+
+  void push(BuildContext context) => context.push(location, extra: this);
+}
+
+GoRoute get $capturedPokemons => GoRouteData.$route(
+      path: '/captured-pokemons',
+      factory: $CapturedPokemonsExtension._fromState,
+    );
+
+extension $CapturedPokemonsExtension on CapturedPokemons {
+  static CapturedPokemons _fromState(GoRouterState state) =>
+      const CapturedPokemons();
+
+  String get location => GoRouteData.$location(
+        '/captured-pokemons',
       );
 
   void go(BuildContext context) => context.go(location, extra: this);
