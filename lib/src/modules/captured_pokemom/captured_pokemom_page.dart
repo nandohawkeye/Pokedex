@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pokedex/injection.dart';
 import 'package:pokedex/src/core/constants/assets_images.dart';
-import 'package:pokedex/src/modules/pokemon_details/pokemon_details_controller.dart';
+import 'package:pokedex/src/modules/captured_pokemom/captured_pokemom_controller.dart';
 import 'package:pokedex/src/shared/utils/text_utils.dart';
 import 'package:pokedex/src/shared/widgets/error_widget.dart';
 import 'package:pokedex/src/shared/widgets/pokeloader.dart';
@@ -14,19 +14,18 @@ import 'package:pokedex/src/shared/widgets/pokemon_moves.dart';
 import 'package:pokedex/src/shared/widgets/pokemon_stats.dart';
 import 'package:pokedex/src/shared/widgets/pokemons_animations.dart';
 
-class PokemonDetailsPage extends StatefulWidget {
-  const PokemonDetailsPage({Key? key, required this.pokemonName})
+class CapturedPokemonPage extends StatefulWidget {
+  const CapturedPokemonPage({Key? key, required this.pokemonName})
       : super(key: key);
 
   final String pokemonName;
 
   @override
-  State<PokemonDetailsPage> createState() => _PokemonDetailsPageState();
+  State<CapturedPokemonPage> createState() => _CapturedPokemonPageState();
 }
 
-class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
-  final PokemonDetailsController _controller =
-      getIt<PokemonDetailsController>();
+class _CapturedPokemonPageState extends State<CapturedPokemonPage> {
+  final _controller = getIt<CapturedPokemomController>();
 
   @override
   void initState() {

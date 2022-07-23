@@ -69,6 +69,7 @@ class HomeController extends GetxController {
     result.fold(setFailure, setPokemon);
   }
 
+  @disposeMethod
   @override
   void dispose() {
     _isConnected.close();

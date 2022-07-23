@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/src/modules/pokemon_details/utils/handle_type_pokemon_color.dart';
+import 'package:pokedex/src/shared/utils/handle_type_pokemon_color.dart';
 import 'package:pokedex/src/modules/pokemon_details/utils/handle_type_pokemon_icon.dart';
 import 'package:pokedex/src/shared/models/pokemon_type_model.dart';
 import 'package:pokedex/src/shared/utils/text_utils.dart';

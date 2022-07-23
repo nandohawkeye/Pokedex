@@ -4,19 +4,18 @@ import 'package:injectable/injectable.dart';
 import 'package:pokedex/src/core/database/app_db.dart';
 import 'package:pokedex/src/core/interfaces/i_failure.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
-import 'package:pokedex/src/shared/services/poke_service.dart';
 
 @LazySingleton()
-class PokemonDetailsController extends GetxController {
-  PokemonDetailsController(this._pokeService, this._db);
+class CapturedPokemomController extends GetxController {
+  CapturedPokemomController(this._db);
 
-  final PokeService _pokeService;
   final AppDB _db;
 
   final _pokemon = Rx<PokemonDetailsModel?>(null);
+
   PokemonDetailsModel? get pokemon => _pokemon.value;
 
-  final _pokemonIsSave = Rx<bool>(false);
+  final _pokemonIsSave = Rx<bool>(true);
   bool get pokemonIsSave => _pokemonIsSave.value;
 
   final _failure = Rx<IFailure?>(null);
@@ -27,16 +26,6 @@ class PokemonDetailsController extends GetxController {
 
   void init(String pokemonName) async {
     await getPokemon(pokemonName);
-    await verifyPokemonIsSave(pokemonName);
-  }
-
-  Future<void> verifyPokemonIsSave(String pokemonName) async {
-    final result = await _db.pokemonIsSave(pokemonName);
-
-    result.fold(
-        (l) =>
-            AsukaSnackbar.warning("Erro ao verificar Pokemon capturado").show(),
-        (value) => _pokemonIsSave.value = value);
   }
 
   void changeSavePokemon() async {
@@ -57,7 +46,7 @@ class PokemonDetailsController extends GetxController {
           types: _pokemon.value!.typesToDrift(),
         )
         .then((result) => result.fold(
-                (_) => AsukaSnackbar.warning("Erro ao capturar pokemon").show(),
+                (_) => AsukaSnackbar.warning("Erro ao salvar pokemon").show(),
                 (_) {
               _pokemonIsSave.value = true;
               AsukaSnackbar.success("Pokemon capturado!").show();
@@ -75,7 +64,7 @@ class PokemonDetailsController extends GetxController {
   Future<void> getPokemon(String pokemonName) async {
     _failure.value = null;
     _pokemon.value = null;
-    final result = await _pokeService.getPokemon(pokemonName);
+    final result = await _db.getPokemomCaptured(pokemonName);
     result.fold(setFailure, setPokemon);
   }
 }

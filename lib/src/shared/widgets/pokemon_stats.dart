@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pokedex/src/modules/pokemon_details/widgets/iten_move.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
+import 'package:pokedex/src/shared/widgets/iten_stat.dart';
 
-class PokemonMoves extends StatelessWidget {
-  const PokemonMoves({Key? key, this.pokemon}) : super(key: key);
+class PokemonStats extends StatelessWidget {
+  const PokemonStats({Key? key, this.pokemon}) : super(key: key);
 
   final PokemonDetailsModel? pokemon;
 
   @override
   Widget build(BuildContext context) {
-    return pokemon == null || pokemon!.moves == null || pokemon!.moves!.isEmpty
+    return pokemon == null || pokemon!.stats == null || pokemon!.stats!.isEmpty
         ? const SizedBox.shrink()
         : AnimationConfiguration.synchronized(
             child: FadeInAnimation(
@@ -26,19 +26,14 @@ class PokemonMoves extends StatelessWidget {
                         color: Colors.transparent,
                       ),
                       child: const Text(
-                        'Movimentos',
+                        'Estatísticas',
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w600),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: pokemon!.moves!
-                          .map<Widget>((move) => ItenMove(move: move))
-                          .toList(),
-                    )
+                    ...pokemon!.stats!
+                        .map<Widget>((stat) => ItenStat(stat: stat))
+                        .toList()
                   ],
                 ),
               ),

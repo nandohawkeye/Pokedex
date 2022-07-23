@@ -52,6 +52,8 @@ dependencies:
   connectivity_plus: 2.3.6
   flutter_native_splash: 2.2.5
   flutter_launcher_icons: 0.9.3
+  stream_transform: 2.0.0
+  asuka: 2.0.0+1
 
 dev_dependencies:
   flutter_test:

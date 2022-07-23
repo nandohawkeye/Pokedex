@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pokedex/src/modules/pokemon_details/widgets/iten_info.dart';
-import 'package:pokedex/src/modules/pokemon_details/widgets/iten_type.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
+import 'package:pokedex/src/shared/widgets/iten_info.dart';
+import 'package:pokedex/src/shared/widgets/iten_type.dart';
 
 class PokemonInfoAndTypes extends StatelessWidget {
   const PokemonInfoAndTypes({Key? key, this.pokemon}) : super(key: key);

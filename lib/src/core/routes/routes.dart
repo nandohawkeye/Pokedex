@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex/src/core/constants/route_paths.dart';
+import 'package:pokedex/src/modules/captured_pokemom/captured_pokemom_page.dart';
 import 'package:pokedex/src/modules/captured_pokemons/captured_pokemons_page.dart';
 import 'package:pokedex/src/modules/home/home_page.dart';
 import 'package:pokedex/src/modules/pokemon_details/pokemon_details_page.dart';
@@ -35,6 +36,18 @@ class PokemonDetailsRoute extends GoRouteData {
   @override
   Widget build(BuildContext context) =>
       PokemonDetailsPage(pokemonName: pokemonName);
+}
+
+@TypedGoRoute<CapturedPokemonRoute>(
+    path: '${RoutePaths.capturedPokemon}/:pokemonName')
+class CapturedPokemonRoute extends GoRouteData {
+  const CapturedPokemonRoute(this.pokemonName);
+
+  final String pokemonName;
+
+  @override
+  Widget build(BuildContext context) =>
+      CapturedPokemonPage(pokemonName: pokemonName);
 }
 
 @TypedGoRoute<CapturedPokemons>(path: RoutePaths.capturedPokemons)

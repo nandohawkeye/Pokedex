@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:pokedex/src/modules/pokemon_details/widgets/iten_stat.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
+import 'package:pokedex/src/shared/widgets/iten_ablitity.dart';
 
-class PokemonStats extends StatelessWidget {
-  const PokemonStats({Key? key, this.pokemon}) : super(key: key);
+class PokemonAbilities extends StatelessWidget {
+  const PokemonAbilities({Key? key, this.pokemon}) : super(key: key);
 
   final PokemonDetailsModel? pokemon;
 
   @override
   Widget build(BuildContext context) {
-    return pokemon == null || pokemon!.stats == null || pokemon!.stats!.isEmpty
+    return pokemon == null ||
+            pokemon!.abilities == null ||
+            pokemon!.abilities!.isEmpty
         ? const SizedBox.shrink()
         : AnimationConfiguration.synchronized(
             child: FadeInAnimation(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,14 +28,20 @@ class PokemonStats extends StatelessWidget {
                         color: Colors.transparent,
                       ),
                       child: const Text(
-                        'Estatísticas',
+                        'Habilidades',
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.w600),
                       ),
                     ),
-                    ...pokemon!.stats!
-                        .map<Widget>((stat) => ItenStat(stat: stat))
-                        .toList()
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: pokemon!.abilities!
+                          .map<Widget>(
+                              (ability) => ItenAbility(ability: ability))
+                          .toList(),
+                    )
                   ],
                 ),
               ),

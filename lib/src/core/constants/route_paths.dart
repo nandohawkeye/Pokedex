@@ -3,4 +3,5 @@ abstract class RoutePaths {
   static const String home = '/home';
   static const String pokemonDetails = '/pokemon-details';
   static const String capturedPokemons = '/captured-pokemons';
+  static const String capturedPokemon = '/captured-pokemon';
 }
