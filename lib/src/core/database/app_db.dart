@@ -52,7 +52,9 @@ class AppDB extends _$AppDB {
       return right(pokemons
           .map((pokemon) => PokemonWithTypeModel(
                 pokemon,
-                types.where((type) => type.pokemonName == pokemon.name).first,
+                types.firstWhere((type) => type.pokemonName == pokemon.name,
+                    orElse: () => PokemonType(
+                        id: 1, name: 'normal', pokemonName: pokemon.name)),
               ))
           .toList());
     } catch (error, st) {

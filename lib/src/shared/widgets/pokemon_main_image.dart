@@ -19,7 +19,9 @@ class PokemonMainImage extends StatelessWidget {
                   size: 130,
                   color: Colors.grey,
                 )
-              : CachedNetworkImage(imageUrl: pokemonImage!),
+              : Hero(
+                  tag: pokemonImage!,
+                  child: CachedNetworkImage(imageUrl: pokemonImage!)),
         ),
       ),
     );

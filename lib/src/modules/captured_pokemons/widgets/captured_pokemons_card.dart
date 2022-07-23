@@ -15,7 +15,7 @@ class CapturedPokemonsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () =>
-          context.push('${RoutePaths.pokemonDetails}/${pokemon.detail.name}'),
+          context.push('${RoutePaths.capturedPokemon}/${pokemon.detail.name}'),
       borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -30,7 +30,9 @@ class CapturedPokemonsCard extends StatelessWidget {
                   color: handleColorTypePokemon(pokemon.type!.name!)!
                       .withOpacity(0.35)),
             ]),
-        child: CachedNetworkImage(imageUrl: pokemon.detail.imageUrl!),
+        child: Hero(
+            tag: pokemon.detail.imageUrl!,
+            child: CachedNetworkImage(imageUrl: pokemon.detail.imageUrl!)),
       ),
     );
   }

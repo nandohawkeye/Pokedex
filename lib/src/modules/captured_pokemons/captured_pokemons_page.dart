@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:pokedex/injection.dart';
-import 'package:pokedex/src/core/constants/assets_lottie.dart';
 import 'package:pokedex/src/modules/captured_pokemons/captured_pokemons_controller.dart';
 import 'package:pokedex/src/modules/captured_pokemons/widgets/gridview_captured_pokemons.dart';
 import 'package:pokedex/src/shared/widgets/empty_widget.dart';
@@ -43,6 +41,7 @@ class _CapturedPokemonsPageState extends State<CapturedPokemonsPage> {
         () => _controller.failure != null
             ? Center(
                 child: ErroWidget(
+                failure: _controller.failure,
                 onRetry: () => _controller.getPokemons(),
               ))
             : _controller.pokemons == null

@@ -22,6 +22,7 @@ class CapturedPokemomController extends GetxController {
   IFailure? get failure => _failure.value;
 
   void setFailure(IFailure failure) => _failure.value = failure;
+
   void setPokemon(PokemonDetailsModel pokemon) => _pokemon.value = pokemon;
 
   void init(String pokemonName) async {

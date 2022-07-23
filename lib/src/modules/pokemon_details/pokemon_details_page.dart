@@ -68,6 +68,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
       ),
       body: Obx(() => _controller.failure != null
           ? ErroWidget(
+              failure: _controller.failure,
               onRetry: () async =>
                   await _controller.getPokemon(widget.pokemonName),
             )

@@ -67,6 +67,7 @@ class _CapturedPokemonPageState extends State<CapturedPokemonPage> {
       ),
       body: Obx(() => _controller.failure != null
           ? ErroWidget(
+              failure: _controller.failure,
               onRetry: () async =>
                   await _controller.getPokemon(widget.pokemonName),
             )

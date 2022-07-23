@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
               ? const NoConnectionWidget()
               : _controller.failure != null
                   ? ErroWidget(
+                      failure: _controller.failure,
                       onRetry: () => _controller.getAllPokemons(),
                     )
                   : Expanded(

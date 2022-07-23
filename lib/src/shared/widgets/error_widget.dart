@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pokedex/src/core/constants/assets_lottie.dart';
+import 'package:pokedex/src/core/interfaces/i_failure.dart';
 
 class ErroWidget extends StatelessWidget {
-  const ErroWidget({Key? key, this.onRetry}) : super(key: key);
+  const ErroWidget({Key? key, this.onRetry, this.failure}) : super(key: key);
 
   final Function()? onRetry;
+  final IFailure? failure;
 
   @override
   Widget build(BuildContext context) {
+    String errorMensage = failure?.mensage ?? '';
     return Center(
         child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -16,8 +19,8 @@ class ErroWidget extends StatelessWidget {
         SizedBox(
             height: 200, width: 200, child: Lottie.asset(AssetsLottie.error)),
         const SizedBox(height: 12),
-        const Text('Ocorreu um erro',
-            style: TextStyle(
+        Text('Ocorreu um erro $errorMensage',
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
             )),
