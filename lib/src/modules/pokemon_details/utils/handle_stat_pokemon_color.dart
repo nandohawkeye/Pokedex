@@ -10,11 +10,11 @@ Color? handleColorPokemonStat(String statName) {
     case PokemonStatsName.attack:
       return Colors.red;
     case PokemonStatsName.specialAttack:
-      return Colors.red;
+      return Colors.purple;
     case PokemonStatsName.defense:
       return Colors.blue;
     case PokemonStatsName.specialDefense:
-      return Colors.blue;
+      return Colors.cyan;
     case PokemonStatsName.speed:
       return Colors.orange;
   }
