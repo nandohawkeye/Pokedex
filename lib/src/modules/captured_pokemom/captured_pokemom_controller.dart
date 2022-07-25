@@ -27,6 +27,16 @@ class CapturedPokemomController extends GetxController {
 
   void init(String pokemonName) async {
     await getPokemon(pokemonName);
+    await verifyPokemonIsSave(pokemonName);
+  }
+
+  Future<void> verifyPokemonIsSave(String pokemonName) async {
+    final result = await _db.pokemonIsSave(pokemonName);
+
+    result.fold(
+        (l) =>
+            AsukaSnackbar.warning("Erro ao verificar Pokemon capturado").show(),
+        (value) => _pokemonIsSave.value = value);
   }
 
   void changeSavePokemon() async {

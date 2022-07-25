@@ -159,23 +159,23 @@ class AppDB extends _$AppDB {
 
   Future<Either<IFailure, void>> deletePokemon(String pokemonName) async {
     try {
-      await (delete(iPokemonDetailsEntity)
-            ..where((tbl) => tbl.name.equals(pokemonName)))
-          .go();
-
       await (delete(iPokemonAbilitiesEntity)
-            ..where((tbl) => tbl.name.equals(pokemonName)))
+            ..where((tbl) => tbl.pokemonName.equals(pokemonName)))
           .go();
 
       await (delete(iPokemonMoveEntity)
-            ..where((tbl) => tbl.name.equals(pokemonName)))
+            ..where((tbl) => tbl.pokemonName.equals(pokemonName)))
           .go();
 
       await (delete(iPokemonTypeEntity)
-            ..where((tbl) => tbl.name.equals(pokemonName)))
+            ..where((tbl) => tbl.pokemonName.equals(pokemonName)))
           .go();
 
       await (delete(iPokemonStatsEntity)
+            ..where((tbl) => tbl.pokemonName.equals(pokemonName)))
+          .go();
+
+      await (delete(iPokemonDetailsEntity)
             ..where((tbl) => tbl.name.equals(pokemonName)))
           .go();
 
