@@ -11,7 +11,9 @@ import 'package:pokedex/src/shared/models/custom_response.dart';
 
 @Injectable(as: IClientHttp)
 class DioClient extends IClientHttp {
-  final Dio _dio = Dio();
+  final Dio _dio;
+
+  DioClient(this._dio);
   @override
   Future<Either<IFailure, IResponse>> get(String url) async {
     try {

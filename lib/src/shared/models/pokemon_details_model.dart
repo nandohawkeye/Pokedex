@@ -7,18 +7,18 @@ import 'package:pokedex/src/shared/models/pokemon_type_model.dart';
 
 class PokemonDetailsModel {
   PokemonDetailsModel({
-    required this.name,
-    required this.height,
-    required this.id,
-    required this.weight,
-    required this.imageUrl,
-    required this.animationFront,
-    required this.animationBack,
-    required this.stats,
-    required this.abilities,
-    required this.types,
-    required this.moves,
-    required this.experience,
+    this.name,
+    this.height,
+    this.id,
+    this.weight,
+    this.imageUrl,
+    this.animationFront,
+    this.animationBack,
+    this.stats,
+    this.abilities,
+    this.types,
+    this.moves,
+    this.experience,
   });
 
   final String? name;

@@ -54,6 +54,7 @@ dependencies:
   flutter_launcher_icons: 0.9.3
   stream_transform: 2.0.0
   asuka: 2.0.0+1
+  mocktail: 0.3.0
 
 dev_dependencies:
   flutter_test:
