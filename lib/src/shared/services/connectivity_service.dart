@@ -3,11 +3,17 @@ import 'package:injectable/injectable.dart';
 
 @singleton
 class ConnectivityService {
-  Stream<bool> get isConnectedStream => Connectivity()
+  Stream<bool> isConnectedStream() => Connectivity()
       .onConnectivityChanged
       .map((event) => event != ConnectivityResult.none);
 
-  Future<bool> getConnected() async =>
-      await (Connectivity().checkConnectivity())
-          .then((value) => value != ConnectivityResult.none);
+  Future<bool> getConnected() async {
+    final result = await (Connectivity().checkConnectivity());
+
+    if (result == ConnectivityResult.none) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

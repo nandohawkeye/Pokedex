@@ -44,7 +44,7 @@ class HomeController extends GetxController {
     }
 
     subscriptionIsconnected =
-        _connectivityService.isConnectedStream.listen((event) async {
+        _connectivityService.isConnectedStream().listen((event) async {
       _isConnected.value = event;
       if (_isConnected.value) {
         await getAllPokemons();
