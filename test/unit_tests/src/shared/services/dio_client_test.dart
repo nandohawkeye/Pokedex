@@ -5,7 +5,7 @@ import 'package:pokedex/src/core/interfaces/i_client_http.dart';
 import 'package:pokedex/src/shared/services/dio_client.dart';
 
 import '../../../../mocks/custom_response_mock.dart';
-import '../../../../mocks/server_failure_mock_test.dart';
+import '../../../../mocks/server_failure_mock.dart';
 
 class DioClientMock extends Mock implements DioClient {}
 

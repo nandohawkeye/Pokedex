@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pokedex/src/core/interfaces/i_client_http.dart';
 
-import '../../../mocks/i_failure_mock.dart';
-import '../../../mocks/i_response_mock.dart';
+import '../../../../mocks/i_failure_mock.dart';
+import '../../../../mocks/i_response_mock.dart';
 
 class IClientHTTPMock extends Mock implements IClientHttp {}
 

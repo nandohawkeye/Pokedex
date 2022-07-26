@@ -5,7 +5,7 @@ import 'package:pokedex/src/shared/services/poke_service.dart';
 
 import '../../../../mocks/list_all_pokemons_mock.dart';
 import '../../../../mocks/pokemon_details_model_mock.dart';
-import '../../../../mocks/server_failure_mock_test.dart';
+import '../../../../mocks/server_failure_mock.dart';
 
 class PokeServicesMock extends Mock implements PokeService {}
 
