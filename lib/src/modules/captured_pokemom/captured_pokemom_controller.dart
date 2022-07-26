@@ -1,9 +1,9 @@
-import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pokedex/src/core/database/app_db.dart';
 import 'package:pokedex/src/core/interfaces/i_failure.dart';
 import 'package:pokedex/src/shared/models/pokemon_details_model.dart';
+import 'package:pokedex/src/shared/widgets/custom_snackbar.dart';
 
 @LazySingleton()
 class CapturedPokemomController extends GetxController {
@@ -33,9 +33,7 @@ class CapturedPokemomController extends GetxController {
   Future<void> verifyPokemonIsSave(String pokemonName) async {
     final result = await _db.pokemonIsSave(pokemonName);
 
-    result.fold(
-        (l) =>
-            AsukaSnackbar.warning("Erro ao verificar Pokemon capturado").show(),
+    result.fold((_) => callSnackbarError("Erro ao verificar Pokemon capturado"),
         (value) => _pokemonIsSave.value = value);
   }
 
@@ -57,19 +55,14 @@ class CapturedPokemomController extends GetxController {
           types: _pokemon.value!.typesToDrift(),
         )
         .then((result) => result.fold(
-                (_) => AsukaSnackbar.warning("Erro ao salvar pokemon").show(),
-                (_) {
-              _pokemonIsSave.value = true;
-              AsukaSnackbar.success("Pokemon capturado!").show();
-            }));
+            (_) => callSnackbarError("Erro ao salvar pokemon"),
+            (_) => successChangeIsSavePokemon(true, 'Pokemon capturado!')));
   }
 
   Future<void> removePokemon() async {
     await _db.deletePokemon(_pokemon.value!.name!).then((result) => result.fold(
-            (_) => AsukaSnackbar.warning("Erro ao soltar pokemon").show(), (_) {
-          _pokemonIsSave.value = false;
-          AsukaSnackbar.success("Pokemon solto!").show();
-        }));
+        (_) => callSnackbarError('Erro ao soltar pokemon'),
+        (_) => successChangeIsSavePokemon(false, "Pokemon solto!")));
   }
 
   Future<void> getPokemon(String pokemonName) async {
@@ -77,5 +70,12 @@ class CapturedPokemomController extends GetxController {
     _pokemon.value = null;
     final result = await _db.getPokemomCaptured(pokemonName);
     result.fold(setFailure, setPokemon);
+  }
+
+  void callSnackbarError(String mensage) => CustomSnackbar.error(mensage);
+
+  void successChangeIsSavePokemon(bool status, String mensage) {
+    _pokemonIsSave.value = status;
+    CustomSnackbar.success(mensage);
   }
 }
