@@ -68,4 +68,89 @@ void main() {
 
     expect(result, pokemonsModels);
   });
+
+  test('Should be delete pokemon return null', () async {
+    when(() => appDB.deletePokemon('picachu'))
+        .thenAnswer((_) async => const Right(null));
+
+    final result = await appDB.deletePokemon('picachu');
+
+    expect(result, const Right(null));
+  });
+
+  test('Should be delete pokemon return FailureLocalDB', () async {
+    when(() => appDB.deletePokemon('picachu'))
+        .thenAnswer((_) async => Left(failure));
+
+    final result = await appDB.deletePokemon('picachu');
+
+    expect(result, Left(failure));
+  });
+
+  test('Should be true isPokemonSave', () async {
+    when(() => appDB.pokemonIsSave('picachu'))
+        .thenAnswer((_) async => const Right(true));
+
+    final result = await appDB.pokemonIsSave('picachu');
+
+    expect(result, const Right(true));
+  });
+
+  test('Should be false isPokemonSave', () async {
+    when(() => appDB.pokemonIsSave('picachu'))
+        .thenAnswer((_) async => const Right(false));
+
+    final result = await appDB.pokemonIsSave('picachu');
+
+    expect(result, const Right(false));
+  });
+
+  test('Should be return FailureLocalDB isPokemonSave', () async {
+    when(() => appDB.pokemonIsSave('picachu'))
+        .thenAnswer((_) async => Left(failure));
+
+    final result = await appDB.pokemonIsSave('picachu');
+
+    expect(result, Left(failure));
+  });
+
+  test('Should be return null when insert Pokemon', () async {
+    when(() => appDB.insertPokemon(
+          pokemonDetail: pokemonDetail,
+          abilities: [ability],
+          moves: [move],
+          types: [type],
+          stats: [stat],
+        )).thenAnswer((_) async => const Right(null));
+
+    final result = await appDB.insertPokemon(
+      pokemonDetail: pokemonDetail,
+      abilities: [ability],
+      moves: [move],
+      types: [type],
+      stats: [stat],
+    );
+
+    expect(result, const Right(null));
+  });
+
+  test('Should be return FailureLocalDB when insert Pokemon', () async {
+    when(() => appDB.insertPokemon(
+          pokemonDetail: pokemonDetail,
+          abilities: [ability],
+          moves: [move],
+          types: [type],
+          stats: [stat],
+        )).thenAnswer((_) async => Left(failure));
+
+    final result = await appDB.insertPokemon(
+      pokemonDetail: pokemonDetail,
+      abilities: [ability],
+      moves: [move],
+      types: [type],
+      stats: [stat],
+    );
+
+    expect(result, Left(failure));
+  });
 }
