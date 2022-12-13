@@ -15,10 +15,11 @@ import 'package:pokedex/src/shared/widgets/pokemon_stats.dart';
 import 'package:pokedex/src/shared/widgets/pokemons_animations.dart';
 
 class PokemonDetailsPage extends StatefulWidget {
-  const PokemonDetailsPage({Key? key, required this.pokemonName})
+  const PokemonDetailsPage({Key? key, required this.pokemonName, this.extra})
       : super(key: key);
 
   final String pokemonName;
+  final Map<String, dynamic>? extra;
 
   @override
   State<PokemonDetailsPage> createState() => _PokemonDetailsPageState();
@@ -36,6 +37,7 @@ class _PokemonDetailsPageState extends State<PokemonDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.extra);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

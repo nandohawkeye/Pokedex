@@ -57,6 +57,7 @@ extension $PokemonDetailsRouteExtension on PokemonDetailsRoute {
   static PokemonDetailsRoute _fromState(GoRouterState state) =>
       PokemonDetailsRoute(
         state.params['pokemonName']!,
+        $extra: state.extra as Map<String, dynamic>?,
       );
 
   String get location => GoRouteData.$location(

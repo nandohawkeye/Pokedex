@@ -29,13 +29,14 @@ class HomeRoute extends GoRouteData {
 @TypedGoRoute<PokemonDetailsRoute>(
     path: '${RoutePaths.pokemonDetails}/:pokemonName')
 class PokemonDetailsRoute extends GoRouteData {
-  const PokemonDetailsRoute(this.pokemonName);
+  PokemonDetailsRoute(this.pokemonName, {this.$extra});
 
   final String pokemonName;
+  final Map<String, dynamic>? $extra;
 
   @override
   Widget build(BuildContext context) =>
-      PokemonDetailsPage(pokemonName: pokemonName);
+      PokemonDetailsPage(pokemonName: pokemonName, extra: $extra);
 }
 
 @TypedGoRoute<CapturedPokemonRoute>(

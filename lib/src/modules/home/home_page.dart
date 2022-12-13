@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
                 Obx(() => PokemonBottomSheet(pokemon: _controller.pokemon)))
         .then((value) {
       if (value != null && value) {
-        context.push('${RoutePaths.pokemonDetails}/$pokemonName');
+        context.push('${RoutePaths.pokemonDetails}/$pokemonName',
+            extra: {'texto': pokemonName, 'numero': 1});
       }
     });
   }
